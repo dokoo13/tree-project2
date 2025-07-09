@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>내 트리 꾸미기</title>
+  <style>
+    body {
+      background: #ffffff;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 28px;
+    }
+
+    .tree-container {
+      position: relative;
+      width: 300px;
+      height: 450px;
+      margin: 30px auto;
+      background: url('5db3db0a-2805-418d-b576-187500b4497f.png') no-repeat center center;
+      background-size: contain;
+    }
+
+    .message {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #333;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      pointer-events: none;
+    }
+
+    .input-section {
+      margin-top: 20px;
+    }
+
+    input[type="text"] {
+      padding: 8px;
+      width: 200px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      padding: 8px 12px;
+      margin-left: 8px;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1e8449;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎄 내 트리 꾸미기</h1>
+
+  <div class="tree-container" id="tree">
+    <!-- 메시지가 여기에 추가됩니다 -->
+  </div>
+
+  <div class="input-section">
+    <input type="text" id="messageInput" placeholder="메시지를 입력하세요" />
+    <button onclick="addMessage()">메시지 달기</button>
+  </div>
+
+  <script>
+    const input = document.getElementById("messageInput");
+
+    function addMessage() {
+  const text = input.value.trim();
+  if (!text) return;
+
+  const tree = document.getElementById("tree");
+  const msg = document.createElement("div");
+  msg.className = "message";
+  msg.innerText = text;
+
+  // 전체 페이지 기준 무작위 좌표
+  const pageWidth = document.body.clientWidth;
+  const inputOffset = document.querySelector('.input-section').offsetTop;
+
+  const x = Math.floor(Math.random() * (pageWidth - 100));
+  const y = Math.floor(Math.random() * (inputOffset - 50));
+
+  msg.style.left = `${x}px`;
+  msg.style.top = `${y}px`;
+
+  document.body.appendChild(msg); // 트리 영역이 아니라 body에 붙이기
+  input.value = '';
+}
+
+
+    // ✅ 엔터키 입력 이벤트 추가
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        addMessage();
+      }
+    });
+  </script>
+</body>
+</html>
